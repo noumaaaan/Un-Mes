@@ -11,96 +11,59 @@ import CoreData
 
 class ViewController: UIViewController {
     
-    // Initialise the outlets on storyboard
     @IBOutlet weak var tableView: UITableView!
+    var expenses_array = [Expenses]()
     
-    //  Create dictionary to store core data
-    var expensesDict : [(String, String)] = [];
-    
-    // View did load
     override func viewDidLoad(){
-        self.retrieveCoreData()
+        super.viewDidLoad()
+        retrieveExpenses()
     }
     
+    // Function to retrieve all expenses from Core Data
+    func retrieveExpenses(){
+        let fetchRequest: NSFetchRequest<Expenses> = Expenses.fetchRequest()
+        do {
+            let expenses = try PersistenceService.context.fetch(fetchRequest)
+            self.expenses_array = expenses
+            self.tableView.reloadData()
+        } catch  {
+            print(error.localizedDescription )
+        }
+    }
+    
+    // Add a new expense
     @IBAction func addButtonTapped() {
         let alert = UIAlertController(title: "Add Expense", message: nil, preferredStyle: .alert)
-        alert.addTextField { (textField) in
-            textField.placeholder = "Expense"
+        alert.addTextField{ (textField) in
+            textField.placeholder = "Name"
         }
-        alert.addTextField { (textField) in
+        alert.addTextField{ (textField) in
             textField.placeholder = "Amount"
             textField.keyboardType = .decimalPad
         }
         
-        let action = UIAlertAction(title: "Add", style: .default) { (_) in
+        // Add button
+        alert.addAction(UIAlertAction(title: "Add", style: .default){ (_) in
             let name = alert.textFields!.first!.text!
-            let amount = "£" + alert.textFields!.last!.text!
+            let amount = alert.textFields!.last!.text!
             
-            self.saveToCoreData(name: name, amount: amount)
+            let expense = Expenses(context: PersistenceService.context)
+            expense.name = name
+            expense.amount = amount
+            PersistenceService.saveContext()
+            
+            self.expenses_array.append(expense)
             self.tableView.reloadData()
-            
-        }
+        })
         
-        alert.addAction(action)
+        // Cancel button
+        alert.addAction(UIAlertAction(title: "Cancel", style: .default){ (_) in
+            return
+        })
+        
         present(alert, animated: true, completion: nil)
-        
-    }
-    
-        
-    // Function to save core data valeus
-    func saveToCoreData(name: String, amount: String){
-    
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let context = appDelegate.persistentContainer.viewContext
-        
-        let newExpense = NSEntityDescription.insertNewObject(forEntityName: "Expenses", into: context)
-
-        newExpense.setValue(name, forKey: "name")
-        newExpense.setValue(amount, forKey: "amount")
-
-        do {
-            try context.save()
-            expensesDict.append((name, amount));
-            print("Successfully saved:")
-            print("Expense name: " + name + " - Amount: " + amount)
-            
-
-        } catch  {
-            print(error.localizedDescription)
-        }
-    }
-    
-    // Function to retrieve all core data values
-    func retrieveCoreData(){
-        
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let context = appDelegate.persistentContainer.viewContext
-        
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Expenses")
-        request.returnsObjectsAsFaults = false
-        
-        do {
-            let results = try context.fetch(request)
-            
-            if results.count > 0 {
-                
-                for result in results as! [NSManagedObject]{
-                    if let name = result.value(forKey: "name") as? String {
-                        if let amount = result.value(forKey: "amount") as? String {
-                            expensesDict.append((name, amount))
-                        }
-                    }
-                }
-                tableView.reloadData()
-            }
-        } catch {
-            print(error.localizedDescription)
-            
-        }
-        
     }
 
-    
 }
 
 extension ViewController: UITableViewDataSource {
@@ -110,43 +73,40 @@ extension ViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return expensesDict.count
+        return expenses_array.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: nil)
-        
-        let (key, value) = expensesDict[indexPath.row]
-        cell.textLabel?.text = key
-        cell.detailTextLabel?.text = value
+        let cell = UITableViewCell(style: .value1, reuseIdentifier: nil)
+        cell.textLabel?.text = expenses_array[indexPath.row].name
+        cell.detailTextLabel?.text = expenses_array[indexPath.row].amount
         
         return cell
     }
     
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if (editingStyle == UITableViewCell.EditingStyle.delete) {
+        if (editingStyle == .delete) {
             
-            let appDelegate = UIApplication.shared.delegate as! AppDelegate
-            let context = appDelegate.persistentContainer.viewContext
+            let fetchRequest: NSFetchRequest<Expenses> = Expenses.fetchRequest()
+            do {
+                let result = try PersistenceService.context.fetch(fetchRequest)
+    
+                // Delete from Core Data and remove from the arrays then save
+                if result.contains(expenses_array[indexPath.row]){
+                    PersistenceService.context.delete(expenses_array[indexPath.row])
+                    expenses_array = expenses_array.filter { $0 != expenses_array[indexPath.row] }
+                    PersistenceService.saveContext()
+                    self.tableView.reloadData()
+                }
             
-            let theAlert = UIAlertController(title: "Delete record?", message: "Are you sure you would like to delete this deadline?", preferredStyle: UIAlertController.Style.alert)
-            
-            theAlert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (action: UIAlertAction!) in
-                let (key, value) = self.expensesDict[indexPath.row]
-                
-                print((key, value))
-                
-
-            }))
-                
-                
-            theAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (action: UIAlertAction!) in
-                return
-            }))
-            
-            present(theAlert, animated: true, completion: nil)
+            } catch  {
+                print(error.localizedDescription )
+            }
         }
     }
-
 }
 
