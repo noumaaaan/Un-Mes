@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2A017EF82195ECB300D9413E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A017EF72195ECB300D9413E /* AppDelegate.swift */; };
-		2A017EFA2195ECB300D9413E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A017EF92195ECB300D9413E /* ViewController.swift */; };
+		2A017EFA2195ECB300D9413E /* ExpensesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A017EF92195ECB300D9413E /* ExpensesViewController.swift */; };
 		2A017EFD2195ECB300D9413E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2A017EFB2195ECB300D9413E /* Main.storyboard */; };
 		2A017F002195ECB300D9413E /* Un_mes.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2A017EFE2195ECB300D9413E /* Un_mes.xcdatamodeld */; };
 		2A017F022195ECB400D9413E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2A017F012195ECB400D9413E /* Assets.xcassets */; };
@@ -16,12 +16,13 @@
 		2A017F0D219C485600D9413E /* PersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A017F0C219C485600D9413E /* PersistenceService.swift */; };
 		2A017F10219C5AE000D9413E /* Expenses+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A017F0E219C5AE000D9413E /* Expenses+CoreDataClass.swift */; };
 		2A017F11219C5AE000D9413E /* Expenses+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A017F0F219C5AE000D9413E /* Expenses+CoreDataProperties.swift */; };
+		2A017F13219F150700D9413E /* EditExpensesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A017F12219F150700D9413E /* EditExpensesViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		2A017EF42195ECB300D9413E /* Un mes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Un mes.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2A017EF72195ECB300D9413E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		2A017EF92195ECB300D9413E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		2A017EF92195ECB300D9413E /* ExpensesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesViewController.swift; sourceTree = "<group>"; };
 		2A017EFC2195ECB300D9413E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		2A017EFF2195ECB300D9413E /* Un_mes.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Un_mes.xcdatamodel; sourceTree = "<group>"; };
 		2A017F012195ECB400D9413E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -30,6 +31,7 @@
 		2A017F0C219C485600D9413E /* PersistenceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceService.swift; sourceTree = "<group>"; };
 		2A017F0E219C5AE000D9413E /* Expenses+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Expenses+CoreDataClass.swift"; sourceTree = "<group>"; };
 		2A017F0F219C5AE000D9413E /* Expenses+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Expenses+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		2A017F12219F150700D9413E /* EditExpensesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditExpensesViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,7 +65,8 @@
 			isa = PBXGroup;
 			children = (
 				2A017EF72195ECB300D9413E /* AppDelegate.swift */,
-				2A017EF92195ECB300D9413E /* ViewController.swift */,
+				2A017EF92195ECB300D9413E /* ExpensesViewController.swift */,
+				2A017F12219F150700D9413E /* EditExpensesViewController.swift */,
 				2A017F0C219C485600D9413E /* PersistenceService.swift */,
 				2A017EFB2195ECB300D9413E /* Main.storyboard */,
 				2A017F012195ECB400D9413E /* Assets.xcassets */,
@@ -149,8 +152,9 @@
 			files = (
 				2A017F0D219C485600D9413E /* PersistenceService.swift in Sources */,
 				2A017F10219C5AE000D9413E /* Expenses+CoreDataClass.swift in Sources */,
-				2A017EFA2195ECB300D9413E /* ViewController.swift in Sources */,
+				2A017EFA2195ECB300D9413E /* ExpensesViewController.swift in Sources */,
 				2A017EF82195ECB300D9413E /* AppDelegate.swift in Sources */,
+				2A017F13219F150700D9413E /* EditExpensesViewController.swift in Sources */,
 				2A017F11219C5AE000D9413E /* Expenses+CoreDataProperties.swift in Sources */,
 				2A017F002195ECB300D9413E /* Un_mes.xcdatamodeld in Sources */,
 			);

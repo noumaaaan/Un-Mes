@@ -9,26 +9,19 @@
 import UIKit
 import CoreData
 
-class ViewController: UIViewController {
+class ExpensesViewController: UIViewController {
     
+    @IBOutlet weak var totalLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
+    
     var expenses_array = [Expenses]()
+    var send_array = [Expenses]()
     
     override func viewDidLoad(){
         super.viewDidLoad()
+        
         retrieveExpenses()
-    }
-    
-    // Function to retrieve all expenses from Core Data
-    func retrieveExpenses(){
-        let fetchRequest: NSFetchRequest<Expenses> = Expenses.fetchRequest()
-        do {
-            let expenses = try PersistenceService.context.fetch(fetchRequest)
-            self.expenses_array = expenses
-            self.tableView.reloadData()
-        } catch  {
-            print(error.localizedDescription )
-        }
+        getTotalExpenses()
     }
     
     // Add a new expense
@@ -53,20 +46,53 @@ class ViewController: UIViewController {
             PersistenceService.saveContext()
             
             self.expenses_array.append(expense)
+            self.getTotalExpenses()
             self.tableView.reloadData()
         })
-        
         // Cancel button
         alert.addAction(UIAlertAction(title: "Cancel", style: .default){ (_) in
             return
         })
-        
         present(alert, animated: true, completion: nil)
+    }
+    
+    // Function to retrieve all expenses from Core Data
+    func retrieveExpenses(){
+        let fetchRequest: NSFetchRequest<Expenses> = Expenses.fetchRequest()
+        do {
+            let expenses = try PersistenceService.context.fetch(fetchRequest)
+            self.expenses_array = expenses
+            self.tableView.reloadData()
+            
+        } catch  {
+            print(error.localizedDescription )
+        }
+    }
+    // Calculate the total for all the expenses
+    func getTotalExpenses(){
+        
+        var total = 0.0
+        for result in expenses_array {
+            if let cost = Double(result.amount!) {
+                total += cost
+            } else {
+                print("Error, not a Double: \(result.amount!)")
+            }
+        }
+        totalLabel.text = "Total: " + String(total)
+    }
+
+    // Send the data to the next view controller
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.identifier == "editExpense") {
+            let secondViewController = segue.destination as! EditExpensesViewController
+            secondViewController.send_array = send_array
+        }
     }
 
 }
 
-extension ViewController: UITableViewDataSource {
+extension ExpensesViewController: UITableViewDataSource, UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -100,6 +126,7 @@ extension ViewController: UITableViewDataSource {
                     PersistenceService.context.delete(expenses_array[indexPath.row])
                     expenses_array = expenses_array.filter { $0 != expenses_array[indexPath.row] }
                     PersistenceService.saveContext()
+                    self.getTotalExpenses()
                     self.tableView.reloadData()
                 }
             
@@ -108,5 +135,12 @@ extension ViewController: UITableViewDataSource {
             }
         }
     }
+    
+    // Navigate to the view controllers dependant upon what table in cell has been selected
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        send_array = [self.expenses_array[indexPath.row]]
+        self.performSegue(withIdentifier: "editExpense", sender: self)
+    }
+    
 }
 
