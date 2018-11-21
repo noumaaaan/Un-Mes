@@ -118,10 +118,13 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LsX-3e-jR4">
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LsX-3e-jR4" customClass="TransitionButton" customModule="TransitionButton">
                                 <rect key="frame" x="297" y="335" width="69" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Save"/>
+                                <connections>
+                                    <action selector="saveButtonTapped:" destination="5Xa-nU-IvP" eventType="touchUpInside" id="CyJ-Tz-zpC"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -131,6 +134,7 @@
                     <connections>
                         <outlet property="amountTextField" destination="gy2-27-UKz" id="B3z-1f-6KY"/>
                         <outlet property="expenseNameTextField" destination="rp7-5C-mdE" id="ibw-Fv-UkT"/>
+                        <outlet property="saveButton" destination="LsX-3e-jR4" id="sbL-Hi-obm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rhV-8y-sl5" userLabel="First Responder" sceneMemberID="firstResponder"/>

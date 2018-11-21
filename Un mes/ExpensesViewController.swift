@@ -24,6 +24,11 @@ class ExpensesViewController: UIViewController {
         getTotalExpenses()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        retrieveExpenses()
+        getTotalExpenses()
+    }
+    
     // Add a new expense
     @IBAction func addButtonTapped() {
         let alert = UIAlertController(title: "Add Expense", message: nil, preferredStyle: .alert)
