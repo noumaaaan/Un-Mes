@@ -4,7 +4,12 @@
         <attribute name="amount" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
+    <entity name="Income" representedClassName="Income" syncable="YES" codeGenerationType="class">
+        <attribute name="amount" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <elements>
         <element name="Expenses" positionX="-63" positionY="-18" width="128" height="73"/>
+        <element name="Income" positionX="-63" positionY="0" width="128" height="75"/>
     </elements>
 </model>

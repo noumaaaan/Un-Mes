@@ -17,6 +17,7 @@
 		2A017F10219C5AE000D9413E /* Expenses+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A017F0E219C5AE000D9413E /* Expenses+CoreDataClass.swift */; };
 		2A017F11219C5AE000D9413E /* Expenses+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A017F0F219C5AE000D9413E /* Expenses+CoreDataProperties.swift */; };
 		2A017F13219F150700D9413E /* EditExpensesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A017F12219F150700D9413E /* EditExpensesViewController.swift */; };
+		2AF6C0AE21A8639C00B53B6A /* EditIncomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AF6C0AD21A8639C00B53B6A /* EditIncomeViewController.swift */; };
 		EBB8FA271766DAF037C8DDEA /* Pods_Un_mes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A34527A29B77CFA7D2B0AA7F /* Pods_Un_mes.framework */; };
 /* End PBXBuildFile section */
 
@@ -33,6 +34,7 @@
 		2A017F0E219C5AE000D9413E /* Expenses+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Expenses+CoreDataClass.swift"; sourceTree = "<group>"; };
 		2A017F0F219C5AE000D9413E /* Expenses+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Expenses+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		2A017F12219F150700D9413E /* EditExpensesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditExpensesViewController.swift; sourceTree = "<group>"; };
+		2AF6C0AD21A8639C00B53B6A /* EditIncomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditIncomeViewController.swift; sourceTree = "<group>"; };
 		61061151279B02AE1927BABA /* Pods-Un mes.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Un mes.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Un mes/Pods-Un mes.debug.xcconfig"; sourceTree = "<group>"; };
 		A34527A29B77CFA7D2B0AA7F /* Pods_Un_mes.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Un_mes.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE6E6D7E7D9D7CA8ABAF324F /* Pods-Un mes.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Un mes.release.xcconfig"; path = "Pods/Target Support Files/Pods-Un mes/Pods-Un mes.release.xcconfig"; sourceTree = "<group>"; };
@@ -71,19 +73,45 @@
 		2A017EF62195ECB300D9413E /* Un mes */ = {
 			isa = PBXGroup;
 			children = (
-				2A017EF72195ECB300D9413E /* AppDelegate.swift */,
-				2A017EF92195ECB300D9413E /* ExpensesViewController.swift */,
-				2A017F12219F150700D9413E /* EditExpensesViewController.swift */,
-				2A017F0C219C485600D9413E /* PersistenceService.swift */,
-				2A017EFB2195ECB300D9413E /* Main.storyboard */,
+				2ADFCA8C21A6D4600097F464 /* Main */,
+				2ADFCA8A21A6D4260097F464 /* Edit  */,
+				2ADFCA8B21A6D43D0097F464 /* Core Data */,
 				2A017F012195ECB400D9413E /* Assets.xcassets */,
 				2A017F032195ECB400D9413E /* LaunchScreen.storyboard */,
 				2A017F062195ECB400D9413E /* Info.plist */,
-				2A017EFE2195ECB300D9413E /* Un_mes.xcdatamodeld */,
-				2A017F0E219C5AE000D9413E /* Expenses+CoreDataClass.swift */,
-				2A017F0F219C5AE000D9413E /* Expenses+CoreDataProperties.swift */,
 			);
 			path = "Un mes";
+			sourceTree = "<group>";
+		};
+		2ADFCA8A21A6D4260097F464 /* Edit  */ = {
+			isa = PBXGroup;
+			children = (
+				2A017F12219F150700D9413E /* EditExpensesViewController.swift */,
+				2AF6C0AD21A8639C00B53B6A /* EditIncomeViewController.swift */,
+			);
+			name = "Edit ";
+			path = ..;
+			sourceTree = "<group>";
+		};
+		2ADFCA8B21A6D43D0097F464 /* Core Data */ = {
+			isa = PBXGroup;
+			children = (
+				2A017F0C219C485600D9413E /* PersistenceService.swift */,
+				2A017F0F219C5AE000D9413E /* Expenses+CoreDataProperties.swift */,
+				2A017F0E219C5AE000D9413E /* Expenses+CoreDataClass.swift */,
+				2A017EFE2195ECB300D9413E /* Un_mes.xcdatamodeld */,
+			);
+			path = "Core Data";
+			sourceTree = "<group>";
+		};
+		2ADFCA8C21A6D4600097F464 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				2A017EF72195ECB300D9413E /* AppDelegate.swift */,
+				2A017EFB2195ECB300D9413E /* Main.storyboard */,
+				2A017EF92195ECB300D9413E /* ExpensesViewController.swift */,
+			);
+			path = Main;
 			sourceTree = "<group>";
 		};
 		5BC6C928052DCFE83A74C787 /* Pods */ = {
@@ -203,13 +231,15 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Un mes/Pods-Un mes-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/TransitionButton/TransitionButton.framework",
+				"${BUILT_PRODUCTS_DIR}/DynamicBlurView/DynamicBlurView.framework",
+				"${BUILT_PRODUCTS_DIR}/PopupDialog/PopupDialog.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TransitionButton.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DynamicBlurView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PopupDialog.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -224,6 +254,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2A017F0D219C485600D9413E /* PersistenceService.swift in Sources */,
+				2AF6C0AE21A8639C00B53B6A /* EditIncomeViewController.swift in Sources */,
 				2A017F10219C5AE000D9413E /* Expenses+CoreDataClass.swift in Sources */,
 				2A017EFA2195ECB300D9413E /* ExpensesViewController.swift in Sources */,
 				2A017EF82195ECB300D9413E /* AppDelegate.swift in Sources */,

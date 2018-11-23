@@ -8,45 +8,38 @@
 
 import UIKit
 import CoreData
-import TransitionButton
 
 class EditExpensesViewController: UIViewController {
  
-    var send_array = [Expenses]() // Defined from the previous view controller
+    var send_array_exp = [Expenses]() // Defined from the previous view controller
+    var send_array_inc = [Income]() // Defined from the previous view controller
     
     // storyboard outlets
     @IBOutlet weak var expenseNameTextField: UITextField!
     @IBOutlet weak var amountTextField: UITextField!
-    @IBOutlet weak var saveButton: TransitionButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.addSubview(saveButton)
-        setFields()
         
-        saveButton.backgroundColor = UIColor(rgb: 0x003366)
-        saveButton.setTitle("Save", for: .normal)
-        saveButton.setTitleColor(.white, for: .normal)
-        saveButton.cornerRadius = 10
-        saveButton.spinnerColor = .white
-        saveButton.addTarget(self, action: #selector(saveButtonTapped(_:)), for: .touchUpInside)
+        setFields()
     }
     
     // Pre load the text fields
     func setFields(){
-        expenseNameTextField.text = send_array.first!.name
-        amountTextField.text = send_array.first!.amount
+        expenseNameTextField.text = send_array_exp.first!.name
+        amountTextField.text = send_array_exp.first!.amount
     }
     
     // Save the changes to Core Data
-    @IBAction func saveButtonTapped(_ button: TransitionButton) {
+    @IBAction func saveButtonTapped(_ button: UIButton) {
         
         let editedName = expenseNameTextField.text
         let editedAmount = amountTextField.text
         
         // Check if the values have not been changed then return to previous
-        if (send_array.first!.name == editedName) && (send_array.first!.amount == editedAmount){
+        if (send_array_exp.first!.name == editedName) && (send_array_exp.first!.amount == editedAmount){
             navigationController?.popViewController(animated: true)
+            return
         }
         
         // Check if either of the fields are empty before saving
@@ -63,23 +56,17 @@ class EditExpensesViewController: UIViewController {
     
     // Function to update the data base with the new values
     func updateCoreData(expenseName: String, expenseAmount: String){
-        
-        // If will save new value, start the animation
-        saveButton.startAnimation()
 
         let fetchRequest: NSFetchRequest<Expenses> = Expenses.fetchRequest()
         do {
             let result = try PersistenceService.context.fetch(fetchRequest)
             
             for object in result {
-                if object.name == send_array.first!.name {
+                if object.name == send_array_exp.first!.name {
                     object.setValue(expenseName, forKey: "name")
                     object.setValue(expenseAmount, forKey: "amount")
                 }
             }
-            
-            // stop the animation
-            saveButton.stopAnimation(animationStyle: .expand, completion: nil)
             
             do {
                 try PersistenceService.context.save()
